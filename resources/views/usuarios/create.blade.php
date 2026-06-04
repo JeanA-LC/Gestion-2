@@ -7,8 +7,8 @@
 
 <form action="{{ route('usuarios.store') }}" method="POST" class="bg-white rounded-xl shadow p-6">
     @include('usuarios._form', [
-        'usuario' => null,
-        'usuarioRoles' => [],
+        'usuario'      => null,
+        'usuarioRoles' => $usuarioRoles,
     ])
 </form>
 @endsection

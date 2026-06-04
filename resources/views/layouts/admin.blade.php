@@ -44,9 +44,20 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                         </svg>
                     </div>
-                    <span class="font-bold text-white text-sm">Personeros</span>
+                    @php
+                    $rolLabel = [
+                        'Administrador' => 'Administrador',
+                        'Coordinador'   => 'Coordinador',
+                        'Personero'     => 'Personero',
+                        'Simpatizante'  => 'Simpatizante',
+                    ];
+                    $primerRol = auth()->user()->roles->pluck('nombre')->first() ?? 'Sistema';
+                    $labelSidebar = $rolLabel[$primerRol] ?? $primerRol;
+                @endphp
+                <span class="font-bold text-white text-sm">{{ $labelSidebar }}</span>
                 </div>
-                <p class="text-xs text-slate-400 truncate max-w-[180px]">{{ auth()->user()->nombres ?? '' }} {{ auth()->user()->apellidos ?? '' }}</p>
+                <p class="text-xs text-white truncate max-w-[180px]">{{ auth()->user()->nombres ?? '' }} {{ auth()->user()->apellidos ?? '' }}</p>
+                <p class="text-xs text-slate-400 truncate max-w-[180px]">{{ auth()->user()->roles->pluck('nombre')->join(', ') }}</p>
             </div>
             {{-- Botón cerrar sidebar (solo móvil) --}}
             <button @click="sidebarOpen = false"

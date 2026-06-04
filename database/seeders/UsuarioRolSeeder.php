@@ -9,8 +9,9 @@ class UsuarioRolSeeder extends Seeder
 {
     public function run(): void
     {
+        // Buscar el primer usuario con correo del administrador (ajustar según el correo real)
         $usuario = DB::table('usuario')
-            ->where('correo', 'jeanandreslc88@gmail.com')
+            ->where('correo', 'JEAN@gmail.com')
             ->first();
 
         $rol = DB::table('rol')

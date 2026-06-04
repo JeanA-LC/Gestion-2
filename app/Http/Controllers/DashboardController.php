@@ -29,11 +29,8 @@ class DashboardController extends Controller
             return $this->personeroDashboard($user);
         }
 
-        if ($roles->contains('Simpatizante')) {
-            return view('dashboards.simpatizante', compact('user'));
-        }
-
-        return view('dashboard'); // fallback
+        // Simpatizante o cualquier otro rol no reconocido → vista de bienvenida limitada
+        return view('dashboards.simpatizante', compact('user'));
     }
 
     private function adminDashboard()

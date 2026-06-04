@@ -25,24 +25,37 @@ class UsuarioController extends Controller
     {
         $roles = Rol::orderBy('nombre')->get();
         $zonas = Zona::orderBy('nombre')->get();
+        $rolSimpatizante = Rol::where('nombre', 'Simpatizante')->first();
 
-        return view('usuarios.create', compact('roles', 'zonas'));
+        // Pre-marcar Simpatizante como rol por defecto al crear
+        $usuarioRoles = $rolSimpatizante ? [$rolSimpatizante->id_rol] : [];
+
+        return view('usuarios.create', compact('roles', 'zonas', 'usuarioRoles'));
     }
 
     public function store(StoreUsuarioRequest $request)
     {
         DB::transaction(function () use ($request) {
             $usuario = User::create([
-                'nombres' => $request->nombres,
+                'nombres'   => $request->nombres,
                 'apellidos' => $request->apellidos,
-                'correo' => $request->correo,
-                'password' => Hash::make($request->password),
-                'telefono' => $request->telefono,
-                'id_zona' => $request->id_zona,
-                'estado' => $request->boolean('estado'),
+                'correo'    => $request->correo,
+                'password'  => Hash::make($request->password),
+                'telefono'  => $request->telefono,
+                'id_zona'   => $request->id_zona,
+                'estado'    => $request->boolean('estado'),
             ]);
 
-            $usuario->roles()->sync($request->roles ?? []);
+            // Si no se seleccionó ningún rol, asignar Simpatizante por defecto
+            $roles = $request->roles ?? [];
+            if (empty($roles)) {
+                $idSimpatizante = Rol::where('nombre', 'Simpatizante')->value('id_rol');
+                if ($idSimpatizante) {
+                    $roles = [$idSimpatizante];
+                }
+            }
+
+            $usuario->roles()->sync($roles);
         });
 
         return redirect()->route('usuarios.index')
