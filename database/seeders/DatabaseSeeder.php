@@ -18,6 +18,11 @@ class DatabaseSeeder extends Seeder
             TipoPersoneroSeeder::class,
             UsuarioSeeder::class,
             UsuarioRolSeeder::class,
+            
+            // --- NUEVOS SEEDERS DE UBIGEO CORREGIDOS ---
+            DepartamentoSeeder::class,
+            ProvinciaSeeder::class,
+            DistritoSeeder::class,
         ]);
     }
 }
