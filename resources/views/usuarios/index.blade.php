@@ -3,14 +3,16 @@
 @section('title', 'Usuarios')
 
 @section('content')
-<div class="flex justify-between items-center mb-4">
-    <h1 class="text-2xl font-bold">Usuarios</h1>
+
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+    <h1 class="text-lg sm:text-xl font-bold">Usuarios</h1>
     <a href="{{ route('usuarios.create') }}" class="bg-slate-900 text-white px-4 py-2 rounded">
         Nuevo usuario
     </a>
 </div>
 
 <div class="bg-white rounded-xl shadow overflow-hidden">
+    <div class="overflow-x-auto">
     <table class="w-full text-sm">
         <thead class="bg-gray-100">
             <tr>
@@ -23,6 +25,7 @@
             </tr>
         </thead>
         <tbody>
+
             @forelse($usuarios as $usuario)
                 <tr class="border-t">
                     <td class="px-4 py-3">
@@ -62,7 +65,10 @@
             @endforelse
         </tbody>
     </table>
+    </div>
 </div>
+
+
 
 <div class="mt-4">
     {{ $usuarios->links() }}

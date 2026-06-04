@@ -10,26 +10,10 @@ class RolSeeder extends Seeder
     public function run(): void
     {
         DB::table('rol')->insertOrIgnore([
-            [
-                'nombre' => 'Administrador',
-                'descripcion' => 'Acceso total al sistema'
-            ],
-            [
-                'nombre' => 'Coordinador Nacional',
-                'descripcion' => 'Gestiona a nivel nacional'
-            ],
-            [
-                'nombre' => 'Coordinador Provincial',
-                'descripcion' => 'Gestiona provincias'
-            ],
-            [
-                'nombre' => 'Coordinador Distrital',
-                'descripcion' => 'Gestiona distritos'
-            ],
-            [
-                'nombre' => 'Operador',
-                'descripcion' => 'Registro y seguimiento'
-            ]
+            ['nombre' => 'Administrador',  'descripcion' => 'Superusuario — acceso total al sistema'],
+            ['nombre' => 'Coordinador',    'descripcion' => 'Gestión operativa de simpatizantes, postulaciones y asignaciones'],
+            ['nombre' => 'Personero',      'descripcion' => 'Operativo electoral — reportes y centro de votación'],
+            ['nombre' => 'Simpatizante',   'descripcion' => 'Ciudadano captado vía link de invitación'],
         ]);
     }
 }
